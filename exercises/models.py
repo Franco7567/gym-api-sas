@@ -1,19 +1,22 @@
 from django.db import models
 
-# Create your models here.
-
 class Exercise(models.Model):
-    """Modelo de Ejercicio"""
-    name = models.CharField(max_length=100, unique=True)  # Nombre del ejercicio
-    description = models.TextField()  # Explicación del ejercicio
-    muscle_group = models.CharField(max_length=50)  # Grupo muscular (Ej: Pecho, Espalda)
-    difficulty = models.CharField(max_length=20, choices=[
+    """Modelo de Ejercicio con soporte para videos externos"""
+    name = models.CharField(max_length=100, unique=True)
+    description = models.TextField()
+    muscle_group = models.CharField(max_length=50)
+    
+    DIFFICULTY_CHOICES = [
         ('Principiante', 'Principiante'),
         ('Intermedio', 'Intermedio'),
         ('Avanzado', 'Avanzado')
-    ])
-    image = models.ImageField(upload_to='exercises/', blank=True, null=True)  # Imagen/GIF (Opcional)
-    created_at = models.DateTimeField(auto_now_add=True)
+    ]
+    difficulty = models.CharField(max_length=20, choices=DIFFICULTY_CHOICES)
+
+    video_url = models.URLField(max_length=200, blank=True, null=True)  # URL del video
+    image_url = models.URLField(max_length=200, blank=True, null=True)  # URL de la imagen
+
+    created_at = models.DateTimeField(auto_now_add=True)  # Campo de fecha
 
     def __str__(self):
         return self.name
