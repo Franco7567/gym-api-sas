@@ -1,3 +1,4 @@
+from rest_framework.permissions import AllowAny
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from .models import Exercise
@@ -7,4 +8,4 @@ class ExerciseViewSet(viewsets.ModelViewSet):
     """CRUD de ejercicios"""
     queryset = Exercise.objects.all().order_by('name')
     serializer_class = ExerciseSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
